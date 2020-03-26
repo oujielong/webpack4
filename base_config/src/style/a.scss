@@ -1,0 +1,9 @@
+$background: #544523;
+.box-sass {
+  color: $background;
+  background-color: $background;
+  display: flex;
+  // background-image: url("../static/image/1.png");
+  transform: rotateX(20);
+  transform: translateX(10)
+}

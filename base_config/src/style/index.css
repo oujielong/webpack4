@@ -1,0 +1,6 @@
+.box-css {
+  background-color: blueviolet;
+  display: flex;
+  transform: rotateX(20);
+  transform: translateX(10)
+}
