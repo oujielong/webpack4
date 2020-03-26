@@ -1,6 +1,9 @@
 ## package.json 安装的包的简介
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 502fa7fe77a367eef720ac90cafb7bc00dc6c5f9
 \_"devDependencies": {
 "webpack": "^4.29.6",
 "webpack-cli": "^3.2.3"//这个和上面的 webpack 合起来才是 webpack4 的安装方式
@@ -16,6 +19,7 @@
 "mini-css-extract-plugin": "^0.5.0",//优化， 用于压缩 css 单独抽出 css 成为文件， 与style-loader 是两种不一样的处理方式，因此二者取其一
 url-loader： 处理图片和样式中url标签的引入，如svg字体图标等文件的引用问题,依赖 file-loader，但是url-loader:可以 设定文件大小转化成dateUrl
 image-webpack-loader：只处理处理图片引入问题，和url-loader有交叉的地方
+
 "mini-css-extract-plugin": "^0.5.0",: css 文件单独抽离
 
 
