@@ -1,9 +1,4 @@
 ## package.json 安装的包的简介
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 502fa7fe77a367eef720ac90cafb7bc00dc6c5f9
 \_"devDependencies": {
 "webpack": "^4.29.6",
 "webpack-cli": "^3.2.3"//这个和上面的 webpack 合起来才是 webpack4 的安装方式
@@ -19,18 +14,20 @@
 "mini-css-extract-plugin": "^0.5.0",//优化， 用于压缩 css 单独抽出 css 成为文件， 与style-loader 是两种不一样的处理方式，因此二者取其一
 url-loader： 处理图片和样式中url标签的引入，如svg字体图标等文件的引用问题,依赖 file-loader，但是url-loader:可以 设定文件大小转化成dateUrl
 image-webpack-loader：只处理处理图片引入问题，和url-loader有交叉的地方
-"mini-css-extract-plugin": "^0.5.0",: css 文件单独抽离
-"babel-core": "^6.26.3",//babel的依赖核心文件
-"babel-loader": "^7.1.5",//将js 转换成低版本兼容更好的工具，需要依赖上面的核心
 
+"mini-css-extract-plugin": "^0.5.0",: css 文件单独抽离
+
+ "babel-core": "^6.26.3",//babel的依赖核心文件
+"babel-loader": "^7.1.5",//将js 转换成低版本兼容更好的工具，需要依赖上面的核心
 },
 "dependencies": {
-"lodash": "^4.17.11"//这个是一个工具库[https://www.html.cn/doc/lodash/]
+"lodash": "^4.17.11"//这个是一个工具库[https://www.html.cn/doc/lodash/],
+ "vue-loader": "^15.9.1",// 处理vue 单文件组建
+ "vue-template-compiler": "^2.6.11",//负责vue 的编译，需要和vue 的版本相符，这样 vue-loader 就会生成兼容运行时的代码。
 }\_
 
 
 调试webpack配置文件方式运行： 
-   cli输入 : node ---inspect-brk ./node_modules/webpack/bin/webpack.js --inline --config  webpack.dev.config.js
 
 //开发服务器
 npm install --save-dev webpack-dev-server
@@ -58,3 +55,44 @@ npm install --save-dev webpack-dev-server
 //单独抽离css
 npm install --save-dev mini-css-extract-plugin
 参考：https://webpack.docschina.org/plugins/mini-css-extract-plugin/
+
+
+
+//引入vue后需要在配置ruler可以支持单文件组件
+{
+      test: /\.vue$/,
+      loader: 'vue-loader'
+},
+
+//同时 单文件组件中的style也要处理
+<style lang=less> : 'vue-style-loader',
+<style lang=sass> : 'vue-style-loader',
+
+/* -------------------------报错与解决--------------------------------------- */
+/*  
+Replace Autoprefixer browsers option to Browserslist config.
+  Use browserslist key in package.json or .browserslistrc file.
+ */
+在ruler中不建议直接如下面的写法： browsers: ["> 0.15% in CN"] }， 将其抽取到package.json 或者 .browserslistrc
+   {
+            loader: "postcss-loader",
+            options: {
+              ident: "postcss",
+              sourceMap: true,
+              plugins: loader => [
+                require("autoprefixer")({ browsers: ["> 0.15% in CN"] }) // 添加前缀
+            ]
+      }
+    },
+
+
+/* ，Cannot find module '@babel/core' babel-loader@8 requires Babel 7.x (the package '@babel/c(转)
+Cannot find module '@babel/core' babel-loader@8 requires Babel 7.x (the package '@babel/core'). If you'd like to use Babel 6.x ('babel-core'), you should install 'babel-loader@7'.ou should install 'babel-loader@7'. */
+原因是：
+babel-loader和babel-core版本不对应所产生的，
+babel-loader 8.x对应babel-core 7.x
+babel-loader 7.x对应babel-core 6.x
+也就是说，看你的版本，然后执行
+npm i --save-dev babel-loader@7.1.5
+
+

@@ -1,4 +1,6 @@
 const path = require("path");
+const vueConfig = require("./webpack.config.vue.js");
+const merge = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -29,6 +31,7 @@ let common = {
       {
         test: /\.(sc|c|sa)ss$/,
         use: [
+          'vue-style-loader',//vue 单文件组建中的style 解析用到
           "style-loader",
           {
             loader: MiniCssExtractPlugin.loader,
@@ -41,7 +44,9 @@ let common = {
           {
             loader: "css-loader",
             options: {
-              sourceMap: true
+              sourceMap: true,
+              // 开启 CSS Modules
+              modules: true,
             },
 
           },
@@ -51,14 +56,24 @@ let common = {
               ident: "postcss",
               sourceMap: true,
               plugins: loader => [
-                require("autoprefixer")// 添加前缀
+                require("autoprefixer") // 添加前缀
               ]
             }
           },
           {
             loader: "sass-loader",
+            //sass  sass-loader 会默认处理不基于缩进的 scss ,支持时需要加缩进选项
             options: {
-              sourceMap: true
+              sourceMap: true,
+              // sass-loader version >= 8
+              // indentedSyntax: true,
+              // 你也可以从一个文件读取，例如 `variables.scss`
+              // 如果 sass-loader 版本 < 8，这里使用 `data` 字段
+              //所有被处理的文件之间共享常见的变量，而不需要显式地导入它们
+              // prependData: `$color: red;`,
+              sassOptions: {
+                indentedSyntax: true
+              }
             }
           },
         ]
@@ -67,6 +82,7 @@ let common = {
       {
         test: /\.less$/,
         use: [
+          'vue-style-loader',
           "style-loader",
           {
             loader: MiniCssExtractPlugin.loader,
@@ -79,7 +95,7 @@ let common = {
           {
             loader: "css-loader",
             options: {
-              sourceMap: true
+              sourceMap: true,
             }
           },
           {
@@ -88,7 +104,7 @@ let common = {
               ident: "postcss",
               sourceMap: true,
               plugins: loader => [
-                require("autoprefixer")// 添加前缀
+                require("autoprefixer") // 添加前缀
               ]
             }
           },
@@ -97,8 +113,7 @@ let common = {
             options: {
               sourceMap: true
             }
-          },
-
+          }
         ]
       },
       //bable 转译 高版本js 成为低版本的js
@@ -142,4 +157,5 @@ let common = {
     }
   }
 };
-module.exports = common;
+
+module.exports = merge(vueConfig, common);
