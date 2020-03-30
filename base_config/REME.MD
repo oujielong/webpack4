@@ -1,9 +1,4 @@
 ## package.json 安装的包的简介
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 502fa7fe77a367eef720ac90cafb7bc00dc6c5f9
 \_"devDependencies": {
 "webpack": "^4.29.6",
 "webpack-cli": "^3.2.3"//这个和上面的 webpack 合起来才是 webpack4 的安装方式

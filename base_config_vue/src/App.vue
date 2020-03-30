@@ -4,16 +4,20 @@
       使用vue 框架的webpack 4
       <!-- <router-link :to="{path: '/'}" tag="li">主页</router-link>
       <router-link :to="{path: '/About'}" tag="li">空白页</router-link> -->
+      <mockTest></mockTest>
     </ul>
   </div>
 </template>
 
 <script>
+import mockTest from "./views/mock.vue";
 export default {
-  name: "App"
+  name: "App",
+  components: {
+    mockTest
+  }
 };
 </script>
-
 <style scoped>
 .nav {
   list-style: none;
