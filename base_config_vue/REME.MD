@@ -68,6 +68,13 @@ npm install --save-dev mini-css-extract-plugin
 <style lang=less> : 'vue-style-loader',
 <style lang=sass> : 'vue-style-loader',
 
+
+
+
+/* 前端开发模拟数据需求
+ */
+ npm i axios mockjs --save
+
 /* -------------------------报错与解决--------------------------------------- */
 /*  
 Replace Autoprefixer browsers option to Browserslist config.
